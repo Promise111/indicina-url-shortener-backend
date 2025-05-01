@@ -12,7 +12,9 @@ import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 import { Response } from 'express';
 import config from 'src/config';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('url')
 @Controller()
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
