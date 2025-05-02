@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Url } from './entities/url.entity';
 import { Repository } from 'typeorm';
 import { CreateUrlDto } from './dto';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
+import * as shortid from 'shortid';
 
 @Injectable()
 export class UrlService {
@@ -12,7 +13,7 @@ export class UrlService {
   ) {}
 
   /*
-   * nanoid over shortid, because nanoid ensures id uniqueness even though shortid ensures very short ids
+   * shortid over nanoid, nanoid ensures id uniqueness even though shortid ensures very short ids
    */
 
   async shortenUrl(createUrlDto: CreateUrlDto): Promise<Url> {
@@ -29,7 +30,7 @@ export class UrlService {
     // Create new short URL
     const url = new Url();
     url.originalUrl = originalUrl;
-    url.shortCode = nanoid();
+    url.shortCode = shortid.generate();
 
     return this.urlRepository.save(url);
   }
