@@ -19,7 +19,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
-  @Post('encode')
+  @Post('api/encode')
   async encode(@Body() createUrlDto: CreateUrlDto) {
     const url = await this.urlService.shortenUrl(createUrlDto);
     return {
@@ -29,14 +29,14 @@ export class UrlController {
     };
   }
 
-  @Get('decode')
+  @Get('api/decode')
   async decode(@Query('shortUrl') shortUrl: string) {
     const shortCode = shortUrl.split('/').pop();
     const originalUrl = await this.urlService.getOriginalUrl(shortCode);
     return { originalUrl };
   }
 
-  @Get('statistic/:shortCode')
+  @Get('api/statistic/:shortCode')
   async getStats(@Param('shortCode') shortCode: string) {
     const url = await this.urlService.getUrlStats(shortCode);
     return {
@@ -48,12 +48,12 @@ export class UrlController {
     };
   }
 
-  @Get('list')
+  @Get('api/list')
   async listUrls() {
     return this.urlService.findAll();
   }
 
-  @Get('search')
+  @Get('api/search')
   async searchUrls(@Query('q') query: string) {
     if (!query || query.length < 3) {
       return [];

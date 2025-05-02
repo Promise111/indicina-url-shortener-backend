@@ -26,6 +26,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^11.1.6",
     "@nestjs/typeorm": "^11.0.0",
+    "@types/shortid": "^2.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.5.0",
@@ -33,6 +34,7 @@
     "nanoid": "^3.3.11",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "shortid": "^2.2.17",
     "typeorm": "^0.3.22"
   },
   "devDependencies": {
