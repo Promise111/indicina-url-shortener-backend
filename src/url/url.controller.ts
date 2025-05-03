@@ -7,11 +7,12 @@ import {
   Res,
   HttpStatus,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 import { Response } from 'express';
-import config from 'src/config';
+import config from '../config';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('url')
@@ -33,6 +34,11 @@ export class UrlController {
   async decode(@Query('shortUrl') shortUrl: string) {
     const shortCode = shortUrl.split('/').pop();
     const originalUrl = await this.urlService.getOriginalUrl(shortCode);
+
+    if (!originalUrl) {
+      throw new NotFoundException('URL not found');
+    }
+
     return { originalUrl };
   }
 
